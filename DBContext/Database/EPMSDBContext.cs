@@ -7,8 +7,11 @@ namespace DBContext.Database
 {
     public partial class EPMSDBContext : DbContext
     {
-        public EPMSDBContext()
+        private readonly string _dbConnection;
+
+        public EPMSDBContext(string dbConnection)
         {
+            _dbConnection = dbConnection;
         }
 
         public EPMSDBContext(DbContextOptions<EPMSDBContext> options)
@@ -45,7 +48,8 @@ namespace DBContext.Database
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("data source=dbtcc.cr01kvjs50s0.ap-southeast-1.rds.amazonaws.com,1433;initial catalog=E002EPMSDB;Encrypt=false;TrustServerCertificate=True;persist security info=True;user id=dbadmin;password=Et@g2011;MultipleActiveResultSets=True;App=EntityFramework;Min Pool Size=0;Max Pool Size=100;Pooling=True;");
+                //optionsBuilder.UseSqlServer("data source=dbtcc.cr01kvjs50s0.ap-southeast-1.rds.amazonaws.com,1433;initial catalog=E002EPMSDB;Encrypt=false;TrustServerCertificate=True;persist security info=True;user id=dbadmin;password=Et@g2011;MultipleActiveResultSets=True;App=EntityFramework;Min Pool Size=0;Max Pool Size=100;Pooling=True;");
+                optionsBuilder.UseSqlServer(_dbConnection);
             }
         }
 
